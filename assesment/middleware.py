@@ -11,11 +11,16 @@ class HandleCookieMiddleware(MiddlewareMixin):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         path = request.path
+        page_name = request.resolver_match.url_name
+        print("Page Name = ", page_name)
         if request.user.is_authenticated:
-            page_name = request.resolver_match.url_name
             if page_name == "login" or page_name == "signup":
                 return redirect("/assesment/dashboard/")
             return None
+        elif not request.user.is_authenticated:
+            if page_name != "login" and page_name != "signup":
+                return redirect("/assesment/login/")
+
         return None
 
     def process_response(self, request, response):

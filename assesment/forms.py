@@ -7,7 +7,6 @@ class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         """
             Creating a user login form by inheriting (AuthenticationForm) django authentication form.
-            Adding bootstrap class 'form-control' to all visible fields for styling.
             The username field to be set auto focused.
         """
 
@@ -32,8 +31,7 @@ class UserCreate(UserCreationForm):
     def __init__(self, *args, **kwargs):
         """
             Creating a user registration form by inheriting (UserCreationForm) django authentication form.
-            Adding bootstrap class 'form-control' to all visible fields for styling.
-            The email field to be set auto focused.
+            The username field to be set auto focused.
         """
         super(UserCreate, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():

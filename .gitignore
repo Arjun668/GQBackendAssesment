@@ -1,6 +1,7 @@
 __pycache__
 *.pyc
-    migrations/*
+migrations/*
 */media/*
+.idea/*
 static/*
 media/*
