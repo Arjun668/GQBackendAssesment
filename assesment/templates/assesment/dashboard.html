@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        .cls_meme {
+            max-width: 150px;
+            padding: 5px;
+        }
+
+        #splash {
+           position: fixed;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           width: 100%;
+            padding: 10px;
+            padding-left: 50px;
+            margin-top: 50px;
+            border-radius: 4px;
+            border: 1px solid gray;
+            background: #a9a9a91f
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dashboard</h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>First Name</th>
+            <td>{{ request.user.first_name }}</td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td>{{ request.user.last_name }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ request.user.username }}</td>
+        </tr>
+
+        <tr>
+            <th>Email</th>
+            <td>{{ request.user.email }}</td>
+        </tr>
+    </table>
+
+    <div class="memes_block" style="margin-top: 50px;"></div>
+
+    <div id="splash" style="">
+        <p>This website uses cookies to make it better. By continuing to use the site, you agree to our use of cookies. </p>
+        <span>
+            <button id="ok" class="btn btn-success" title="Agree to accept cookie policy">Accept</button>
+            <button id="reject" class="btn btn-light" title="if you rejected then it will redirect you on login page">Reject</button>
+        </span>
+    </div>
+
+    <p class="rejected_message" style="display: none; color:red; font-size:18px;">
+        Sorry, you have rejected cookie policy. You are unable to continue with us
+    </p>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    var is_accepted = false;
+    $(document).ready(function(){
+        $('#splash').fadeOut(5000);
+        setTimeout(function (){
+            if (! is_accepted) {
+                console.log("6 seconds completed");
+                $("#splash").hide();
+                $(".rejected_message").show();
+                location.href = "/assesment/logout";
+            }
+        }, 6000);
+    });
+
+    $("#ok").click(function (){
+        $("#splash").hide();
+        is_accepted = true;
+        $.ajax({
+            url: "https://api.imgflip.com/get_memes",
+            dataType: "json",
+            success:function (result){
+                var meme_list = result['data']['memes'];
+                $(".memes_block").html("");
+                for(var i in meme_list) {
+                    if (i > 4) {  break;  }
+                    var url = meme_list[i]['url'];
+                    var html = '<span><img class="cls_meme" src="' + url + '" alt=""></span>';
+                    $(".memes_block").append(html);
+                }
+            }
+        });
+    });
+
+    $("#reject").click(function (){
+        console.log("Rejected button clicked");
+        $("#splash").hide();
+        $(".rejected_message").show();
+        setTimeout(function (){
+                location.href = "/assesment/logout";
+        }, 2000);
+    });
+
+</script>
+
+
+</body>
+</html>

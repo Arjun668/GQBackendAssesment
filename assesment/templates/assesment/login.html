@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login | GQAssesment</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="{% static 'assets/images/icons/favicon.ico' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}">
+
+    <style>
+        .wrap-input100 {
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+				<form class="login100-form validate-form" method="post">
+					<span class="login100-form-title p-b-33">Account Login	</span>
+
+                    {% for error in form.non_field_errors %}
+                        <div style="text-align: center; color: red; margin-bottom: 10px; font-size: 14px;">
+                          {{ error }}
+                        </div>
+                    {% endfor %}
+
+                    {% csrf_token %}
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        {{ form.username }}
+					</div>
+
+					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                        {{ form.password }}
+					</div>
+
+					<div class="container-login100-form-btn m-t-20">
+						<button class="login100-form-btn">Sign in</button>
+					</div>
+
+					<div class="text-center">
+						<span class="txt1">Create an account?</span>
+						<a href="{% url 'assesment:signup' %}" class="txt2 hov1">Sign up</a>
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+<!--===============================================================================================-->
+	<script src="{% static 'assets/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'assets/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'assets/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>

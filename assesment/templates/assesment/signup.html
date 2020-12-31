@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Signup | GQAssesment</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{% static 'assets/images/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}">
+
+    <style>
+        .wrap-input100 {
+            margin-top:10px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+            <form class="login100-form validate-form" method="post">
+                <span class="login100-form-title p-b-33">Signup</span>
+
+                {% csrf_token %}
+
+                <div class="wrap-input100 validate-input" >
+                    {{ form.first_name }}
+                </div>
+
+                <div class="wrap-input100 validate-input" >
+                    {{ form.last_name }}
+                </div>
+
+                <div class="wrap-input100 validate-input" >
+                    {{ form.email }}
+                </div>
+
+                <div class="wrap-input100 validate-input" >
+                    {{ form.username }}
+                </div>
+
+                <div class="wrap-input100 rs1 validate-input">
+                    {{ form.password1 }}
+                </div>
+
+                <div class="wrap-input100 rs1 validate-input">
+                    {{ form.password2 }}
+                </div>
+
+                {% for field in form %}
+                    <p>
+                        {% if field.help_text %}
+                            <small style="color: grey">{{ field.help_text }}</small>
+                        {% endif %}
+                    </p>
+                    <p>
+                        {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </p>
+                {% endfor %}
+
+
+                <div class="container-login100-form-btn m-t-20">
+                    <button class="login100-form-btn">Signup</button>
+                </div>
+
+                <div class="text-center">
+                    <span class="txt1">Already have an account?</span>
+                    <a href="{% url 'assesment:login' %}" class="txt2 hov1">Login</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!--===============================================================================================-->
+<script src="{% static 'assets/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'assets/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'assets/vendor/bootstrap/js/popper.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+
+</body>
+</html>
